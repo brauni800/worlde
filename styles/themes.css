@@ -1,0 +1,20 @@
+:root {
+  --background-color: #ffffff;
+  --disabled-color: #939b9f;
+  --keyboard-color: #D3D6DA;
+  --success-color: #6aaa64;
+  --warning-color: #ceb02c;
+  --border-color: #000000;
+  --color: #000000;
+
+  color-scheme: light;
+}
+
+html.dark {
+  --background-color: #262b3c;
+  --keyboard-color: #565F7E;
+  --border-color: #939b9f;
+  --color: #ffffff;
+
+  color-scheme: dark;
+}

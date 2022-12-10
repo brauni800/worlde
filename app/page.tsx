@@ -1,5 +1,10 @@
+import ThemeButton from './components/ThemeButton'
+
 export default function HomePage () {
   return (
-    <div>Home Page</div>
+    <div>
+      <span>Home Page</span>
+      <ThemeButton />
+    </div>
   )
 }
