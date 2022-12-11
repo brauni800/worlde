@@ -1,7 +1,8 @@
 import { ReactNode } from 'react'
-import 'styles/globals.css'
 
 import ThemeProvider from 'app/providers/ThemeProvider'
+import styles from './layout.module.css'
+import 'styles/globals.css'
 
 export default function RootLayout ({
   children
@@ -13,7 +14,11 @@ export default function RootLayout ({
       <head />
       <body>
         <ThemeProvider>
-          {children}
+          <div className={styles.container}>
+            <section>
+              {children}
+            </section>
+          </div>
         </ThemeProvider>
       </body>
     </html>

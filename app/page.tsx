@@ -1,10 +1,9 @@
-import ThemeButton from './components/ThemeButton'
+import Header from 'app/components/Header'
 
 export default function HomePage () {
   return (
-    <div>
-      <span>Home Page</span>
-      <ThemeButton />
-    </div>
+    <>
+      <Header />
+    </>
   )
 }

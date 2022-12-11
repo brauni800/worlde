@@ -1,0 +1,21 @@
+.container {
+  background-color: var(--background-color-2);
+  justify-content: space-between;
+  text-transform: uppercase;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  align-items: center;
+  margin: 5rem 0;
+  display: flex;
+}
+
+.container > span {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.buttonGroup {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}

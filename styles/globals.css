@@ -2,15 +2,14 @@
 
 html,
 body {
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 
 * {
@@ -18,6 +17,11 @@ a {
 }
 
 body {
-  background: var(--background-color);
+  background: var(--background-color-1);
   color: var(--color);
+  height: 100vh;
+}
+
+svg {
+  color: var(--svg-color);
 }

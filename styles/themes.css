@@ -1,19 +1,25 @@
 :root {
-  --background-color: #ffffff;
+  --background-color-1: #ffffff;
+  --background-color-2: #f3f3f3;
+  --svg-color-accent: #ffffff;
   --disabled-color: #939b9f;
   --keyboard-color: #D3D6DA;
   --success-color: #6aaa64;
   --warning-color: #ceb02c;
   --border-color: #000000;
+  --svg-color: #0000007d;
   --color: #000000;
 
   color-scheme: light;
 }
 
 html.dark {
-  --background-color: #262b3c;
+  --background-color-1: #262b3c;
+  --background-color-2: #dadce008;
+  --svg-color-accent: #262b3c;
   --keyboard-color: #565F7E;
   --border-color: #939b9f;
+  --svg-color: #ffffff;
   --color: #ffffff;
 
   color-scheme: dark;
