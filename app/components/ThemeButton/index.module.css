@@ -1,0 +1,52 @@
+.container {
+  --slider-margin: 2px;
+  display: flex;
+}
+
+.container > input {
+  visibility: hidden;
+  margin: 0;
+  height: 0;
+  width: 0;
+}
+
+.container > input:checked + label {
+  background-image: url('/svg/switch_body_light.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.container > input:checked + label > span {
+  background-image: url('/svg/switch_light.svg');
+  left: calc(100% - var(--slider-margin));
+  transform: translateX(-100%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.container > label {
+  background-image: url('/svg/switch_body_dark.svg');
+  transition: background-color 0.2s ease-in-out;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+.container > label > span {
+  background-image: url('/svg/switch_dark.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  left: var(--slider-margin);
+  top: var(--slider-margin);
+  background-size: cover;
+  transition: left 0.2s;
+  border-radius: 45px;
+  position: absolute;
+  content: '';
+}

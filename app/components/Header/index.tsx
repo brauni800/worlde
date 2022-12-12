@@ -10,7 +10,7 @@ export default function Header () {
       <span>Worlde</span>
       <div className={styles.buttonGroup}>
         <ChartSVG />
-        <ThemeButton />
+        <ThemeButton size={1.5} />
       </div>
     </div>
   )
