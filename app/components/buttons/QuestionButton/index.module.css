@@ -1,0 +1,70 @@
+.modal {
+  background-color: var(--background-color-1);
+  border: 1px solid var(--border-color);
+  padding: 3.5rem 3rem;
+  border-radius: 1rem;
+  max-height: 100vh;
+  max-width: 35rem;
+  overflow: auto;
+}
+
+.modal > h1 {
+  text-align: center;
+  margin: 0 0 2rem 0;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.modal > section {
+  margin: 0 0 2rem 0;
+}
+
+.modal > section > p {
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.modal > section > h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal > section > article span {
+  font-weight: 800;
+}
+
+.squareContainer {
+  grid-template-columns: repeat(5, 4.5rem);
+  place-content: center;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.square {
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  text-align: center;
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.modal > section:last-of-type {
+  place-content: center;
+  display: flex;
+  margin: 0;
+}
+
+.modal > section:last-of-type > button {
+  background-color: var(--success-color);
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  padding: 0.5rem 3.5rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+  border: none;
+}

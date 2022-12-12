@@ -1,4 +1,5 @@
 :root {
+  --background-modal-color: rgba(255, 255, 255, 0.8);
   --background-color-1: #ffffff;
   --background-color-2: #f3f3f3;
   --svg-color-accent: #ffffff;
@@ -14,6 +15,7 @@
 }
 
 html.dark {
+  --background-modal-color: rgba(38, 43, 60, 0.8);
   --background-color-1: #262b3c;
   --background-color-2: #dadce008;
   --svg-color-accent: #262b3c;
