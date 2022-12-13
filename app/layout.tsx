@@ -2,6 +2,8 @@ import { ReactNode } from 'react'
 
 import ThemeProvider from 'app/providers/ThemeProvider'
 import GameProvider from 'app/providers/GameProvider'
+import Body from 'app/components/Body'
+
 import styles from './layout.module.css'
 import 'styles/globals.css'
 
@@ -12,18 +14,18 @@ export default function RootLayout ({
 }) {
   return (
     <html>
-      <head />
-      <body>
-        <ThemeProvider>
-          <div className={styles.container}>
-            <section>
-              <GameProvider>
+      <ThemeProvider>
+        <GameProvider>
+          <head />
+          <Body>
+            <div className={styles.container}>
+              <section>
                 {children}
-              </GameProvider>
-            </section>
-          </div>
-        </ThemeProvider>
-      </body>
+              </section>
+            </div>
+          </Body>
+        </GameProvider>
+      </ThemeProvider>
     </html>
   )
 }

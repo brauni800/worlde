@@ -17,11 +17,11 @@ export default function Board ({ dictionary }: { dictionary: string[] }) {
 
   return (
     <div className={styles.board}>
-      <Row />
-      <Row />
-      <Row />
-      <Row />
-      <Row />
+      <Row index={0} />
+      <Row index={1} />
+      <Row index={2} />
+      <Row index={3} />
+      <Row index={4} />
     </div>
   )
 }

@@ -2,7 +2,9 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react'
 import { useCountdown } from 'app/hooks'
 
+const DEFAULT_RESPONSES = ['', '', '', '', '']
 const FIVE_MINS_COUNTDOWN = 5.02 * 60 * 1000
+const DEFAULT_TIMER = '00:00'
 
 const parseDigit = (digit: number) => {
   return digit.toLocaleString('en-US', {
@@ -23,9 +25,11 @@ const parseWord = (word: string) => {
 
 export interface GameContextInterface {
   startGame: ({ dictionary }: { dictionary: string[] }) => void
+  pushCharacter: (char: string) => void
   resetTimer: () => void
   looseGame: () => void
   winGame: () => void
+  responses: string[]
   victories: number
   games: number
   timer: string
@@ -33,11 +37,13 @@ export interface GameContextInterface {
 }
 
 const GameContext = createContext<GameContextInterface>({
+  pushCharacter: () => {},
   resetTimer: () => {},
+  timer: DEFAULT_TIMER,
   startGame: () => {},
   looseGame: () => {},
   winGame: () => {},
-  timer: '00:00',
+  responses: [],
   victories: 0,
   word: '',
   games: 0
@@ -46,6 +52,7 @@ const GameContext = createContext<GameContextInterface>({
 export const useGame = () => useContext(GameContext)
 
 export default function GameProvider ({ children }: { children: ReactNode }) {
+  const [responses, setResponses] = useState<string[]>(DEFAULT_RESPONSES)
   const [dictionary, setDictionary] = useState<string[]>([])
   const [victories, setVictories] = useState(0)
   const [games, setGames] = useState(0)
@@ -89,6 +96,33 @@ export default function GameProvider ({ children }: { children: ReactNode }) {
     resetTimer()
   }, [selectRandomWord])
 
+  const pushCharacter = useCallback((char: string) => {
+    const _responses = [...responses]
+
+    const currentRowIndex = _responses.findIndex((row) => row.length < 5)
+    if (currentRowIndex < 0) {
+      setResponses(DEFAULT_RESPONSES)
+      looseGame()
+      return
+    }
+
+    _responses[currentRowIndex] += char
+
+    if (_responses[currentRowIndex] === word) {
+      setResponses(DEFAULT_RESPONSES)
+      winGame()
+      return
+    }
+
+    if (currentRowIndex === 4 && _responses[currentRowIndex].length === 5) {
+      setResponses(DEFAULT_RESPONSES)
+      looseGame()
+      return
+    }
+
+    setResponses(_responses)
+  }, [looseGame, winGame, word, responses])
+
   useEffect(() => {
     if (minutes + seconds <= 0) looseGame()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,10 +131,12 @@ export default function GameProvider ({ children }: { children: ReactNode }) {
   return (
     <GameContext.Provider
       value={{
+        pushCharacter,
         resetTimer,
         startGame,
         looseGame,
         victories,
+        responses,
         winGame,
         timer,
         games,
