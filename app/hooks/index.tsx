@@ -40,3 +40,24 @@ export function useOutsideClick (callback: () => void) {
 
   return ref
 }
+
+export const useCountdown = (targetDate: string | number | Date) => {
+  const countdownDate = new Date(targetDate).getTime()
+
+  const [countdown, setCountdown] = useState(countdownDate - new Date().getTime())
+
+  const getReturnValues = (cd: number) => {
+    const minutes = Math.floor((cd % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((cd % (1000 * 60)) / 1000)
+    return [minutes, seconds]
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(countdownDate - new Date().getTime())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [countdownDate])
+
+  return getReturnValues(countdown)
+}
