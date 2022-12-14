@@ -2,9 +2,10 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react'
 import { useCountdown } from 'app/hooks'
 
+type GameStatus = 'WON' | 'LOSE' | 'IN_PROGRESS'
 const DEFAULT_RESPONSES = ['', '', '', '', '']
 const FIVE_MINS_COUNTDOWN = 5.02 * 60 * 1000
-const DEFAULT_TIMER = '00:00'
+export const DEFAULT_TIMER = '00:00'
 
 const parseDigit = (digit: number) => {
   return digit.toLocaleString('en-US', {
@@ -28,8 +29,10 @@ export interface GameContextInterface {
   pushCharacter: (char: string) => void
   resetTimer: () => void
   looseGame: () => void
+  nextGame: () => void
   winGame: () => void
   responses: string[]
+  status: GameStatus
   victories: number
   games: number
   timer: string
@@ -38,10 +41,12 @@ export interface GameContextInterface {
 
 const GameContext = createContext<GameContextInterface>({
   pushCharacter: () => {},
+  status: 'IN_PROGRESS',
   resetTimer: () => {},
   timer: DEFAULT_TIMER,
   startGame: () => {},
   looseGame: () => {},
+  nextGame: () => {},
   winGame: () => {},
   responses: [],
   victories: 0,
@@ -53,6 +58,7 @@ export const useGame = () => useContext(GameContext)
 
 export default function GameProvider ({ children }: { children: ReactNode }) {
   const [responses, setResponses] = useState<string[]>(DEFAULT_RESPONSES)
+  const [status, setStatus] = useState<GameStatus>('IN_PROGRESS')
   const [dictionary, setDictionary] = useState<string[]>([])
   const [victories, setVictories] = useState(0)
   const [games, setGames] = useState(0)
@@ -60,7 +66,7 @@ export default function GameProvider ({ children }: { children: ReactNode }) {
 
   const [nowTime, setNowTime] = useState(new Date().getTime())
   const [minutes, seconds] = useCountdown(FIVE_MINS_COUNTDOWN + nowTime)
-  const timer = `${parseDigit(minutes)}:${parseDigit(seconds)}`
+  const timer = minutes + seconds > 0 ? `${parseDigit(minutes)}:${parseDigit(seconds)}` : DEFAULT_TIMER
 
   const selectRandomWord = useCallback(() => {
     const { word, wordIndex } = getRandomWord(dictionary)
@@ -85,13 +91,18 @@ export default function GameProvider ({ children }: { children: ReactNode }) {
 
   const looseGame = useCallback(() => {
     setGames((prev) => prev + 1)
-    selectRandomWord()
-    resetTimer()
-  }, [selectRandomWord])
+    setStatus('LOSE')
+  }, [])
 
   const winGame = useCallback(() => {
     setVictories((prev) => prev + 1)
     setGames((prev) => prev + 1)
+    setStatus('WON')
+  }, [])
+
+  const nextGame = useCallback(() => {
+    setResponses(DEFAULT_RESPONSES)
+    setStatus('IN_PROGRESS')
     selectRandomWord()
     resetTimer()
   }, [selectRandomWord])
@@ -101,32 +112,27 @@ export default function GameProvider ({ children }: { children: ReactNode }) {
 
     const currentRowIndex = _responses.findIndex((row) => row.length < 5)
     if (currentRowIndex < 0) {
-      setResponses(DEFAULT_RESPONSES)
       looseGame()
       return
     }
 
     _responses[currentRowIndex] += char
+    setResponses(_responses)
 
     if (_responses[currentRowIndex] === word) {
-      setResponses(DEFAULT_RESPONSES)
       winGame()
       return
     }
 
     if (currentRowIndex === 4 && _responses[currentRowIndex].length === 5) {
-      setResponses(DEFAULT_RESPONSES)
       looseGame()
-      return
     }
-
-    setResponses(_responses)
   }, [looseGame, winGame, word, responses])
 
   useEffect(() => {
-    if (minutes + seconds <= 0) looseGame()
+    if (timer === DEFAULT_TIMER) looseGame()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [minutes, seconds])
+  }, [timer])
 
   return (
     <GameContext.Provider
@@ -137,7 +143,9 @@ export default function GameProvider ({ children }: { children: ReactNode }) {
         looseGame,
         victories,
         responses,
+        nextGame,
         winGame,
+        status,
         timer,
         games,
         word

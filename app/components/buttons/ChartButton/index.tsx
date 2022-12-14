@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import IconButton from 'app/components/buttons/IconButton'
 import { useGame } from 'app/providers/GameProvider'
@@ -9,9 +9,10 @@ import ChartSVG from 'public/svg/chart.svg'
 import styles from './index.module.css'
 
 export default function ChartButton () {
+  const [lastTime, setLastTime] = useState<string | undefined>(undefined)
   const [open, setOpen] = useState(false)
 
-  const { timer, word, victories, games } = useGame()
+  const { timer, word, victories, games, status, nextGame } = useGame()
 
   const handleOpenModal = () => {
     setOpen(true)
@@ -20,6 +21,19 @@ export default function ChartButton () {
   const handleCloseModal = () => {
     setOpen(false)
   }
+
+  const handleNextGame = () => {
+    if (status === 'WON' || status === 'LOSE') nextGame()
+    setLastTime(undefined)
+    handleCloseModal()
+  }
+
+  useEffect(() => {
+    if ((status === 'WON' || status === 'LOSE') && !lastTime) {
+      setLastTime(timer)
+      handleOpenModal()
+    }
+  }, [status, timer, lastTime])
 
   return (
     <>
@@ -40,18 +54,20 @@ export default function ChartButton () {
             </div>
           </section>
           <section>
-            <p>
-              La palabra es: <span>{word}</span>
-            </p>
+            {status !== 'IN_PROGRESS' && (
+              <p>
+                La palabra es: <span>{word}</span>
+              </p>
+            )}
             <p className={styles.uppercase}>
               Siguiente palabra
             </p>
             <span>
-              {timer}
+              {lastTime ?? timer}
             </span>
           </section>
           <section>
-            <button onClick={handleCloseModal}>
+            <button onClick={handleNextGame}>
               Aceptar
             </button>
           </section>

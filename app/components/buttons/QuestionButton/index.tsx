@@ -6,6 +6,7 @@ import Modal from 'app/components/Modal'
 
 import QuestionSVG from 'public/svg/question_circle.svg'
 import styles from './index.module.css'
+import { useGame } from 'app/providers/GameProvider'
 
 const Square = ({ children, fill }: { children: ReactNode, fill?: string }) => {
   return (
@@ -19,7 +20,12 @@ const Square = ({ children, fill }: { children: ReactNode, fill?: string }) => {
 }
 
 export default function QuestionButton () {
+  const { nextGame } = useGame()
   const [open, setOpen] = useState(false)
+
+  const handlePlayClick = () => {
+    nextGame()
+  }
 
   return (
     <>
@@ -76,7 +82,7 @@ export default function QuestionButton () {
             </p>
           </section>
           <section>
-            <button>¡Jugar!</button>
+            <button onClick={handlePlayClick}>¡Jugar!</button>
           </section>
         </div>
       </Modal>
