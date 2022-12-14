@@ -63,7 +63,7 @@ export const useCountdown = (targetDate: string | number | Date) => {
 }
 
 export const useFirstVisit = (cb: () => void) => {
-  const [visited, setVisited] = useState(Boolean(localStorage.getItem('visited')))
+  const [visited, setVisited] = useState(typeof window !== 'undefined' ? Boolean(localStorage.getItem('visited')) : false)
 
   useEffect(() => {
     if (!visited) {
