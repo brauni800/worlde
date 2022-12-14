@@ -2,11 +2,12 @@
 import { ReactNode, useState } from 'react'
 
 import IconButton from 'app/components/buttons/IconButton'
+import { useGame } from 'app/providers/GameProvider'
+import { useFirstVisit } from 'app/hooks'
 import Modal from 'app/components/Modal'
 
 import QuestionSVG from 'public/svg/question_circle.svg'
 import styles from './index.module.css'
-import { useGame } from 'app/providers/GameProvider'
 
 const Square = ({ children, fill }: { children: ReactNode, fill?: string }) => {
   return (
@@ -20,8 +21,13 @@ const Square = ({ children, fill }: { children: ReactNode, fill?: string }) => {
 }
 
 export default function QuestionButton () {
-  const { nextGame } = useGame()
   const [open, setOpen] = useState(false)
+
+  useFirstVisit(() => {
+    setOpen(true)
+  })
+
+  const { nextGame } = useGame()
 
   const handlePlayClick = () => {
     nextGame()

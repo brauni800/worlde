@@ -61,3 +61,17 @@ export const useCountdown = (targetDate: string | number | Date) => {
 
   return getReturnValues(countdown)
 }
+
+export const useFirstVisit = (cb: () => void) => {
+  const [visited, setVisited] = useState(Boolean(localStorage.getItem('visited')))
+
+  useEffect(() => {
+    if (!visited) {
+      localStorage.setItem('visited', 'true')
+      setVisited(true)
+      cb()
+    }
+  }, [visited, cb])
+
+  return { visited }
+}
