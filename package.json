@@ -1,5 +1,9 @@
 {
   "name": "worlde",
+  "author": {
+    "name": "Braulio Betancourt",
+    "url": "https://github.com/brauni800"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
