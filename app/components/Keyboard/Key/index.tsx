@@ -27,7 +27,11 @@ export default function Key ({ children }: { children: ReactNode }) {
   }
 
   return (
-    <button className={styles.button} onClick={handleClick}>
+    <button
+      id={`keyboard_key_${char}`}
+      className={styles.button}
+      onClick={handleClick}
+    >
       {char === 'BACKSPACE'
         ? <Icon><BackspaceSVG /></Icon>
         : char}

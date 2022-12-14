@@ -30,6 +30,7 @@ export default function QuestionButton () {
   const { nextGame } = useGame()
 
   const handlePlayClick = () => {
+    setOpen(false)
     nextGame()
   }
 

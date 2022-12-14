@@ -12,6 +12,7 @@
   --color: #000000;
 
   --keyboard-color: rgba(218, 220, 224, 0.3);
+  --keyboard-key-selected-color: #818181;
   --keyboard-key-char-color: #56575e;
   --keyboard-key-color: #D3D6DA;
 
