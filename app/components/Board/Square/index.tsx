@@ -13,7 +13,7 @@ export default function Square ({ children, index }: { children: ReactNode, inde
 
   const getColor = () => {
     if (children) {
-      const char = children.toString()
+      const char = children.toString().toLowerCase()
       if (char === word.at(index)) return COLOR_SUCCESS
       if (word.includes(char)) return COLOR_WARNING
       return COLOR_DEFAULT

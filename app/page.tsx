@@ -1,5 +1,6 @@
 import Header from 'app/components/Header'
 import Board from 'app/components/Board'
+import Keyboard from './components/Keyboard'
 
 const getWords = async () => {
   const res = await fetch('https://gitlab.com/d2945/words/-/raw/main/words.txt')
@@ -19,6 +20,7 @@ export default async function HomePage () {
     <>
       <Header />
       <Board dictionary={dictionary} />
+      <Keyboard />
     </>
   )
 }

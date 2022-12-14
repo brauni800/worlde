@@ -75,3 +75,17 @@ export const useFirstVisit = (cb: () => void) => {
 
   return { visited }
 }
+
+export const validCharacter = (char: string) => {
+  const IS_CAPITAL_LETTER = (x: number) => x >= 65 && x <= 90
+  const IS_LOWERCASE_LETTER = (x: number) => x >= 97 && x <= 122
+  const IS_LETTER_ENYE = (x: number) => x === 209 || x === 241
+
+  if (char.length === 1) {
+    const ascii = char.charCodeAt(0)
+    if (IS_CAPITAL_LETTER(ascii) || IS_LOWERCASE_LETTER(ascii) || IS_LETTER_ENYE(ascii)) {
+      return char
+    }
+  }
+  return undefined
+}
