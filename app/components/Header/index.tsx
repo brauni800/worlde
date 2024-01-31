@@ -7,7 +7,7 @@ export default function Header () {
   return (
     <div className={styles.container}>
       <QuestionButton />
-      <span>Worlde</span>
+      <span>Wordle</span>
       <div className={styles.buttonGroup}>
         <ChartButton />
         <ThemeButton size={1.5} />
